@@ -1,0 +1,4 @@
+# AI4Test Skill Python 依赖
+
+# Excel 转 Markdown 表格工具依赖
+openpyxl>=3.0.0

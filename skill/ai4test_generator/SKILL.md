@@ -84,6 +84,18 @@ graph LR
 
 ## 使用方式
 
+### 安装依赖
+
+在使用辅助脚本前，请先安装 Python 依赖：
+
+```bash
+# 进入 skill 目录
+cd skill/ai4test_generator
+
+# 安装依赖（仅需一次）
+pip install -r requirements.txt
+```
+
 ### 基础用法
 
 ```bash
@@ -194,4 +206,5 @@ graph LR
 
 - `examples/` - 使用示例
 - `scripts/` - 辅助脚本
+- `requirements.txt` - Python 依赖列表
 - `ai4test.yml` - Dify 工作流定义文件
