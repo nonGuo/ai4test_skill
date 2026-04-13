@@ -1,0 +1,125 @@
+{
+  "name": "ai4test_generator",
+  "version": "1.0.0",
+  "description": "数仓测试用例自动化生成技能，根据 Mapping 文档、表结构 DDL、需求文档 (RS/TS) 生成符合规范的测试用例及验证 SQL",
+  "author": "AI Assistant",
+  "homepage": "https://github.com/ai4test/skill",
+  "license": "MIT",
+  "keywords": [
+    "test-case",
+    "data-warehouse",
+    "sql-generation",
+    "automation",
+    "testing"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "python": ">=3.6.0"
+  },
+  "main": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "requirements.txt",
+    "examples/",
+    "scripts/"
+  ],
+  "scripts": {
+    "validate": "bash scripts/validate.sh",
+    "excel-to-markdown": "python3 scripts/excel_to_markdown.py",
+    "format-convert": "python3 scripts/format_converter.py",
+    "test": "python3 -m py_compile scripts/*.py"
+  },
+  "dependencies": {
+    "openpyxl": ">=3.0.0"
+  },
+  "capabilities": [
+    {
+      "name": "测试用例脑图生成",
+      "description": "根据 Mapping、TS、RS 文档自动生成测试用例思维导图"
+    },
+    {
+      "name": "测试用例详细生成",
+      "description": "将脑图转换为结构化的测试用例 JSON"
+    },
+    {
+      "name": "SQL 自动生成",
+      "description": "为每个测试用例生成 GAUSS DB 验证 SQL"
+    },
+    {
+      "name": "数据库执行验证",
+      "description": "自动执行 SQL 并返回 PASS/FAIL 结果"
+    },
+    {
+      "name": "Excel 导出",
+      "description": "将测试用例导出为 Excel 文件"
+    },
+    {
+      "name": "完成通知",
+      "description": "通过 welink/Outlook 发送任务完成通知"
+    }
+  ],
+  "inputs": {
+    "required": [
+      {
+        "name": "mapping",
+        "type": "file",
+        "format": ["xlsx", "xls"],
+        "description": "Mapping 映射文档（Excel 格式）"
+      },
+      {
+        "name": "TS",
+        "type": "file",
+        "format": ["docx", "pdf"],
+        "description": "表结构设计文档"
+      },
+      {
+        "name": "w3_id",
+        "type": "string",
+        "description": "用户工号（接收通知）"
+      }
+    ],
+    "optional": [
+      {
+        "name": "RS",
+        "type": "file",
+        "format": ["docx", "pdf"],
+        "description": "需求规格文档"
+      },
+      {
+        "name": "DDL",
+        "type": "string",
+        "description": "建表语句"
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "description": "用户当前输入/指令"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "脑图",
+      "format": "mermaid",
+      "description": "Mermaid 格式测试用例脑图"
+    },
+    {
+      "name": "测试用例",
+      "format": "json",
+      "description": "结构化测试用例 JSON"
+    },
+    {
+      "name": "Excel 文件",
+      "format": "xlsx",
+      "description": "生成的测试用例 Excel 文件"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai4test/skill"
+  },
+  "bugs": {
+    "url": "https://github.com/ai4test/skill/issues"
+  }
+}
