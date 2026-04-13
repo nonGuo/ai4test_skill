@@ -92,6 +92,7 @@ echo "4. 检查脚本文件..."
 echo "--------------------------------------"
 check_warn "$SKILL_DIR/scripts/ai4test_helper.py" "辅助工具脚本"
 check_warn "$SKILL_DIR/scripts/format_converter.py" "格式转换脚本"
+check_warn "$SKILL_DIR/scripts/excel_to_markdown.py" "Excel 转 Markdown 脚本"
 
 echo ""
 echo "5. Python 语法检查..."

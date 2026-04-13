@@ -25,9 +25,17 @@
 
 | 参数名 | 类型 | 说明 | 示例 |
 |--------|------|------|------|
-| `mapping` | file | Mapping 映射文档（Markdown 表格格式） | `mapping.md` |
-| `TS` | file | 表结构设计文档 | `TS.docx` |
+| `mapping` | file | Mapping 映射文档（Excel 格式，.xlsx/.xls） | `mapping.xlsx` |
+| `TS` | file | 表结构设计文档（Word/PDF） | `TS.docx` |
 | `w3_id` | string | 用户工号（接收通知） | `q00797588` |
+
+### 输入处理说明
+
+| 输入文件 | 原始格式 | 处理方式 | 转换后格式 |
+|----------|----------|----------|------------|
+| `mapping` | Excel 表格 | 读取 Excel 并转换为 Markdown 表格 | Markdown 表格 |
+| `TS` | Word/PDF | 提取文本内容 | 纯文本 |
+| `RS` | Word/PDF | 提取文本内容 | 纯文本 |
 
 ### 可选参数
 

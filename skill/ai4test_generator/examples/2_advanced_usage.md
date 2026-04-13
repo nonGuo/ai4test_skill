@@ -156,24 +156,61 @@ graph LR
 
 ## 输入文件模板
 
-### Mapping 文档模板
+### Mapping 文档模板 (Excel 格式)
 
-```markdown
-# 表级 Mapping
+**Excel 文件结构**:
 
+| 工作表 | 用途 | 列说明 |
+|--------|------|--------|
+| `表级 mapping` | 定义表间关联关系 | 序号、目标表、来源表、关联条件、过滤条件 |
+| `字段级 mapping` | 定义字段转换逻辑 | 目标字段、来源字段、转换规则、说明 |
+
+**示例内容 - 表级 mapping 工作表**:
+```
 | 序号 | 目标表 | 来源表 | 关联条件 | 过滤条件 |
 |------|--------|--------|----------|----------|
 | 1 | fin_dwb.table_i | src.table_a | a.id = b.id | a.status = 'Y' |
 | 2 | fin_dwb.table_i | src.table_b | - | b.date >= '20250101' |
+```
 
-# 字段级 Mapping
-
+**示例内容 - 字段级 mapping 工作表**:
+```
 | 目标字段 | 来源字段 | 转换规则 | 说明 |
 |----------|----------|----------|------|
 | id | id | 直接复制 | 主键 |
 | name | name | 直接复制 | 名称 |
 | amount | amount * rate | 计算 | 金额转换 |
 | create_time | TO_TIMESTAMP(create_date) | 函数转换 | 时间格式化 |
+```
+
+**Excel 转 Markdown 命令**:
+```bash
+# 转换整个 Excel 文件
+python3 scripts/excel_to_markdown.py mapping.xlsx
+
+# 转换指定工作表
+python3 scripts/excel_to_markdown.py mapping.xlsx 表级 mapping
+
+# 限制行数（仅取前 100 行）
+python3 scripts/excel_to_markdown.py mapping.xlsx 字段级 mapping 100
+```
+
+**转换后输出**:
+```markdown
+## 表级 mapping
+
+| 序号 | 目标表 | 来源表 | 关联条件 | 过滤条件 |
+|------|--------|--------|----------|----------|
+| 1 | fin_dwb.table_i | src.table_a | a.id = b.id | a.status = 'Y' |
+| 2 | fin_dwb.table_i | src.table_b | - | b.date >= '20250101' |
+
+## 字段级 mapping
+
+| 目标字段 | 来源字段 | 转换规则 | 说明 |
+|----------|----------|----------|------|
+| id | id | 直接复制 | 主键 |
+| name | name | 直接复制 | 名称 |
+| amount | amount * rate | 计算 | 金额转换 |
 ```
 
 ### TS 文档模板

@@ -8,7 +8,7 @@
 
 ```
 用户上传文件:
-- mapping.md (包含表级 mapping 和字段级 mapping)
+- mapping.xlsx (Excel 格式，包含表级 mapping 和字段级 mapping 两个工作表)
 - TS.docx (表结构设计文档)
 
 用户输入:
@@ -17,12 +17,41 @@
 
 ### 系统执行流程
 
-1. **文档解析**: 提取 mapping 和 TS 内容
+1. **文档解析**: 
+   - 读取 Excel mapping 文件，转换为 Markdown 表格
+   - 提取 TS 文档内容
 2. **意图识别**: 分类为 class_type=3 (初次生成)
 3. **TS 要素提取**: 提取 schema、表名、主键、分布方式
 4. **知识检索**: 检索测试用例设计规范
 5. **脑图生成**: Agent 生成 Mermaid 格式测试用例脑图
 6. **等待确认**: 输出脑图并请求用户确认
+
+### Excel 转 Markdown 处理
+
+系统内部自动执行：
+```python
+# 读取 Excel 表级 mapping
+表级 mapping = excel_to_markdown('mapping.xlsx', sheet_name='表级 mapping')
+
+# 读取 Excel 字段级 mapping
+字段级 mapping = excel_to_markdown('mapping.xlsx', sheet_name='字段级 mapping')
+```
+
+转换后提供给 LLM 的格式：
+```markdown
+## 表级 mapping
+
+| 序号 | 目标表 | 来源表 | 关联条件 | 过滤条件 |
+|------|--------|--------|----------|----------|
+| 1 | fin_dwb.table_i | src.table_a | a.id = b.id | a.status = 'Y' |
+
+## 字段级 mapping
+
+| 目标字段 | 来源字段 | 转换规则 | 说明 |
+|----------|----------|----------|------|
+| id | id | 直接复制 | 主键 |
+| name | name | 直接复制 | 名称 |
+```
 
 ### 输出示例
 
